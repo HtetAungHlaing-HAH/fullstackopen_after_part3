@@ -1,0 +1,27 @@
+{
+  "name": "phonebook_backend",
+  "version": "0.0.1",
+  "description": "Fullstack Open 2021 Exercises Starting from Part 3",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "error \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HtetAungHlaing-HAH/fullstackopen_after_part3.git"
+  },
+  "author": "Matti Luukkainen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HtetAungHlaing-HAH/fullstackopen_after_part3/issues"
+  },
+  "homepage": "https://github.com/HtetAungHlaing-HAH/fullstackopen_after_part3#readme"
+}
