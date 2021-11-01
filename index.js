@@ -69,6 +69,33 @@ app.delete('/api/persons/:id', (request, response) => {
   response.status(204).end()
 })
 
+//to generate randome id
+const randomId =(max) => {
+  const id = Math.floor(Math.random() * max )
+  return id
+}
+
+//Create new resource
+app.post('/api/persons', (request, response) => {
+  const body = request.body
+
+  if(!body.name)
+  {
+    return response.status(400).json({
+      error: "Content Missing"
+    })
+  }
+
+  const person = {
+    id: randomId(10000),
+    name: body.name,
+    number: body.number
+  }
+  
+  persons = persons.concat(person)
+  response.json(person)
+})
+
 const PORT = 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
