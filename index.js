@@ -4,12 +4,16 @@ const morgan = require('morgan')
 const app = express()
 
 app.use(express.json())
+
+//morgan create new token
 morgan.token('data', function (req, res) {
   if(req.method === "POST")
   {
     return JSON.stringify(req.body)
   }
 })
+
+//use morgan
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
 
 let persons = [
