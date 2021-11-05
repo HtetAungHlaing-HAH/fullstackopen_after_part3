@@ -4,6 +4,7 @@
   "description": "Fullstack Open 2021 Exercises Starting from Part 3",
   "main": "index.js",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "morgan": "^1.10.0"
   },

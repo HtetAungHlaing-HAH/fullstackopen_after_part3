@@ -1,8 +1,9 @@
-const { json } = require('express')
+const cors = require('cors')
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 
 //morgan create new token
@@ -110,7 +111,6 @@ app.post('/api/persons', (request, response) => {
       error: "Name must be unique"
     })
   }
-
   const person = {
     id: randomId(10000),
     name: body.name,
