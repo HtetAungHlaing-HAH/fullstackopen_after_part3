@@ -1,6 +1,8 @@
 const cors = require('cors')
 const express = require('express')
 const morgan = require('morgan')
+const dotenv = require('dotenv').config()
+const Person = require('./models/person')
 const app = express()
 
 app.use(cors())
@@ -18,28 +20,6 @@ morgan.token('data', function (req, res) {
 //use morgan
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
 
-let persons = [
-    { 
-      "id": 1,
-      "name": "Arto Hellas", 
-      "number": "040-123456"
-    },
-    { 
-      "id": 2,
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523"
-    },
-    { 
-      "id": 3,
-      "name": "Dan Abramov", 
-      "number": "12-43-234345"
-    },
-    { 
-      "id": 4,
-      "name": "Mary Poppendieck", 
-      "number": "39-23-6423122"
-    }
-]
 
 //root of PERSONS REST API
 app.get('/', (request, response) => {
@@ -48,32 +28,28 @@ app.get('/', (request, response) => {
 
 //persons resource
 app.get('/api/persons', (request, response) => {
-    response.send(persons)
+    Person.find().then(persons => {
+      response.json(persons)
+    })
 })
 
 //info of PERSONS REST API
 app.get('/info', (request, response) => {
   const current_datetime = new Date()
-  const persons_count = persons.length
-  response.send(`
-  <div>Phone book has info for ${persons_count} people</div>
-  </br>
-  <div>${current_datetime}</div>`)
+  Person.find().then(persons => {
+    response.send(`
+    <div>Phone book has info for ${persons.length} people</div>
+    </br>
+    <div>${current_datetime}</div>`)
+  })
+  
 })
 
 //individual person resource
 app.get('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-  const person = persons.find(person => person.id === id)
-
-  if(person)
-  {
+  Person.findById(request.params.id).then(person => {
     response.json(person)
-  }
-  else
-  {
-    response.status(404).end()
-  }
+  })
 })
 
 //Delete resources
