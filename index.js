@@ -70,32 +70,23 @@ const randomId =(max) => {
 app.post('/api/persons', (request, response) => {
   const body = request.body
 
-  if(!body.name)
+  if(body.name === undefined)
   {
-    return response.status(400).json({
-      error: "Name Missing"
-    })
+    return response.status(400).json({error: 'name missing'})
   }
-  else if(!body.number)
+  else if(body.number === undefined)
   {
-    return response.status(400).json({
-      error: "Number Missing"
-    })
+    return response.status(400).json({error: 'number missing'})
   }
-  else if(persons.find(person => person.name === body.name))
-  {
-    return response.status(400).json({
-      error: "Name must be unique"
-    })
-  }
-  const person = {
-    id: randomId(10000),
+
+  const person = new Person({
     name: body.name,
-    number: body.number
-  }
-  
-  persons = persons.concat(person)
-  response.json(person)
+    number: body.number,
+  })
+
+  person.save().then(savedPerson => {
+    response.json(savedPerson)
+  })
 })
 
 const PORT = process.env.PORT || 3001

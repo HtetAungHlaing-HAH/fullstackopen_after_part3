@@ -1,7 +1,7 @@
-POST https://desolate-sea-48012.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "name": "Lisa",
+    "name": "",
     "number": "091111111"
 }
