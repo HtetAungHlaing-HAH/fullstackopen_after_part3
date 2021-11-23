@@ -46,22 +46,21 @@ app.get('/info', (request, response) => {
 })
 
 //individual person resource
-app.get('/api/persons/:id', (request, response) => {
-  Person.findById(request.params.id).then(person => {
+app.get('/api/persons/:id', (request, response, next) => {
+  Person.findById(request.params.id)
+  .then(person => {
     response.json(person)
   })
+  .catch(error => next(error))
 })
 
 //Delete resources
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
     .then(result => {
       response.status(204).end()
     })
-    .catch(error => {
-      console.log(error)
-      response.status(400).end()
-    })
+    .catch(error => next(error))
 })
 
 //to generate randome id
@@ -92,6 +91,29 @@ app.post('/api/persons', (request, response) => {
     response.json(savedPerson)
   })
 })
+
+//unknown endpoint middleware
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({
+    error: 'unknown endpoint'
+  })
+}
+
+app.use(unknownEndpoint)
+
+//error handler middleware
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if(error.name === 'CastError')
+  {
+    response.status(400).send({ error: 'malformatted id'})
+  }
+
+  next(error)
+}
+
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
