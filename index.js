@@ -99,6 +99,7 @@ app.post('/api/persons', (request, response) => {
   })
 })
 
+//update resources
 app.put('/api/persons/:id', (request, response, next) => {
   const body = request.body
 
