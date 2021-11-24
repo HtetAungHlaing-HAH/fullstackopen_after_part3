@@ -1,1 +1,1 @@
-DELETE http://localhost:3001/api/persons/618e8ef6485860f2037bc4b0
+DELETE http://desolate-sea-48012.herokuapp.com/api/persons/618e8ef6485860f2037bc4b0
