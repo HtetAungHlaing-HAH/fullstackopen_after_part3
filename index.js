@@ -1,4 +1,5 @@
 const cors = require('cors')
+const { query } = require('express')
 const express = require('express')
 const morgan = require('morgan')
 const dotenv = require('dotenv').config()
@@ -101,7 +102,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     number: body.number,
   }
 
-  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+  Person.findByIdAndUpdate(request.params.id, person, { new: true, runValidators: true})
     .then(updatedPerson => {
       if(updatedPerson)
       {

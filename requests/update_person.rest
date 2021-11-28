@@ -1,7 +1,7 @@
-PUT http://desolate-sea-48012.herokuapp.com/api/persons/618e91361ce2c04bf5325df0
+PUT http://desolate-sea-48012.herokuapp.com/api/persons/618e91361ce2c04bf5325df4
 Content-Type: application/json
 
 {
     "name": "Teddy",
-    "number": "22334455"
+    "number": "22"
 }
